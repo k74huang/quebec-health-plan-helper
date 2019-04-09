@@ -5,24 +5,31 @@ $(document).ready(function()
 
 	$("#submit").click(function()
 	{
+		var resString;
+
 		var arrivalDate = new Date($("#arrival").val());
 		arrivalDate.setHours(arrivalDate.getHours() + 4);
 
 		var regDate = new Date($("#registration").val());
 		regDate.setHours(regDate.getHours() + 4);
 
-		console.log("Arrival: " + arrivalDate + "\nRegistration: " + regDate);
-
-		var eligibleDate = new Date(arrivalDate);
-		eligibleDate.setMonth(arrivalDate.getMonth() + 3);
-		eligibleDate.setDate(1);
-
-		if(regDate.getMonth() > arrivalDate.getMonth() && regDate.getDate() > 15)
+		if(arrivalDate == 'Invalid Date' || regDate == 'Invalid Date')
 		{
-			eligibleDate.setMonth(eligibleDate.getMonth() + 1);
+			resString = "Please verify that the dates are entered correctly.<br>请保证日期输的没错。"
 		}
 
-		var resString = "The health plan becomes valid on: " + eligibleDate.toLocaleDateString("en-CA");
+		else
+		{
+			var eligibleDate = new Date(arrivalDate);
+			eligibleDate.setMonth(arrivalDate.getMonth() + 3);
+			eligibleDate.setDate(1);
+
+			if(regDate.getMonth() > arrivalDate.getMonth() && regDate.getDate() > 15)
+			{
+				eligibleDate.setMonth(eligibleDate.getMonth() + 1);
+			}
+			resString = "The health plan becomes valid on: " + eligibleDate.toLocaleDateString("en-CA") + "<br>健康计划会在 " + eligibleDate.toLocaleDateString("zh-CN") + " 生效。";
+		}
 
 		$("#result").html(resString);
 
