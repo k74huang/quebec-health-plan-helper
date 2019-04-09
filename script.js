@@ -24,9 +24,14 @@ $(document).ready(function()
 			eligibleDate.setMonth(arrivalDate.getMonth() + 3);
 			eligibleDate.setDate(1);
 
-			if(regDate.getMonth() > arrivalDate.getMonth() && regDate.getDate() > 15)
+			if(regDate > arrivalDate && regDate.getMonth() != arrivalDate.getMonth())
 			{
-				eligibleDate.setMonth(regDate.getMonth() + 3);
+				eligibleDate.setMonth(regDate.getMonth() + 2);
+				if(regDate.getDate() > 15)
+				{
+					eligibleDate.setMonth(regDate.getMonth() + 3);
+				}
+				console.log(regDate.getMonth());
 			}
 			resString = "The health plan becomes valid on: " + eligibleDate.toLocaleDateString("en-CA") + "<br>健康计划会在 " + eligibleDate.toLocaleDateString("zh-CN") + " 生效。";
 		}
